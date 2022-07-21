@@ -9,13 +9,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import {  ApolloDriver, ApolloDriverConfig} from '@nestjs/apollo';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ClientsModule,
     ReservationsModule, ProductsModule, MongooseModule.forRoot(process.env.MONGODB_URL),
-     UsersModule,
+     UsersModule, GraphQLModule.forRoot<ApolloDriverConfig>({
+      autoSchemaFile: 'schema.gql',
+      driver: ApolloDriver
+     }),
      AuthModule],
   controllers: [AppController],
   providers: [

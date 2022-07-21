@@ -1,0 +1,29 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  username: String
+  password: String
+}
+
+type Product {
+  id: ID!
+  name: String
+  manufacturer: String
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchUsers: [User!]!
+  fetchUser(username: String!): User!
+}
+
+type Mutation {
+  createProduct(productInput: ProductInput!): Product!
+}
+
+input ProductInput {
+  name: String!
+  manufacturer: String!
+}

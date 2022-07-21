@@ -10,11 +10,11 @@ export class UsersService {
   constructor(@InjectModel(userModelName) private model: Model<IUser>) {}
 
   insert(user: IUser) {
-      return this.model.create(user);
+    return this.model.create(user);
   }
 
   findByUsername(username: string) {
-      return this.model.findOne({ username });
+    return this.model.findOne({ username });
   }
 
   findAll() {
@@ -24,7 +24,7 @@ export class UsersService {
   async findByUsernameOrFail(username: string) {
       const found = await this.findByUsername(username);
       if(!found) {
-          throw new NotFoundException();
+        throw new NotFoundException();
       }
       return found;
   }

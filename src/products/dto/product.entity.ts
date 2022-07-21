@@ -5,9 +5,9 @@ export class Product {
     @Field(type => ID)
     id: string;
 
-    @Field()
-    title: string;
+    @Field({ nullable: true })
+    name: string;
 
-    @Field()
+    @Field({ nullable: true })
     manufacturer: string;
 }
