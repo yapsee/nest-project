@@ -7,4 +7,7 @@ export class ProductInput {
 
     @Field()
     manufacturer: string;
+
+    @Field()
+    price: number;
 }

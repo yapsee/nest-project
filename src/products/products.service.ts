@@ -5,22 +5,36 @@ https://docs.nestjs.com/providers#services
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { MongoBasicQueriesService } from 'src/commons/services/mongo-basic-queries.service';
+import { ReservationsService } from 'src/reservations/reservations.service';
 import { ProductInput } from './dto/product.input';
 import { IProduct } from './interfaces/products.interface';
 import { productModelName } from './schema/products.model-name';
 
 @Injectable()
 
-export class ProductsService {
-  constructor(@InjectModel(productModelName) private model: Model<IProduct>){}
-
-  insertOne(product: ProductInput): Promise<IProduct> {
-    return this.model.create(product);
+export class ProductsService  extends MongoBasicQueriesService<IProduct> {
+  constructor(
+      @InjectModel(productModelName) private model: Model<IProduct>,
+      private readonly reservationService: ReservationsService
+  ) {
+      super(model);
   }
 
-  async findAll(): Promise<IProduct[]> {
-    return this.model.find();
+  async fetchProductsReservations() {
+    const products = await this.findAll();
+    const reservations = await this.reservationService.findAll();
+    return [...products, ...reservations];
   }
+
+
+  // insertOne(product: ProductInput): Promise<IProduct> {
+  //   return this.model.create(product);
+  // }
+
+  // async findAll(): Promise<IProduct[]> {
+  //   return this.model.find();
+  // }
 
   // products = [
   //   {id:1, name: 'oculus', manufacturer: 'meta'},

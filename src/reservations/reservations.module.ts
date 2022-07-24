@@ -18,5 +18,6 @@ import { ReservationsPropertyResolver } from './reservations-property.resolver';
     UsersModule],
     controllers: [ ReservationsController,],
     providers: [ ReservationsService,RerservationResolver, ReservationsPropertyResolver],
+    exports: [ReservationsService]
 })
 export class ReservationsModule { }

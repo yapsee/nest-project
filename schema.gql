@@ -4,8 +4,9 @@
 
 type Product {
   id: ID!
-  name: String
+  name: String!
   manufacturer: String
+  price: Float!
 }
 
 type User {
@@ -29,7 +30,10 @@ type Query {
   fetchUsers: [User!]!
   fetchUser(username: String!): User!
   fetchProducts: [Product!]!
+  fetchProductsReservations: [ProductReservation!]!
 }
+
+union ProductReservation = Product | Reservation
 
 type Mutation {
   makeReservation(reservationInput: ReservationInput!): Reservation!
@@ -45,6 +49,7 @@ input ReservationInput {
 input ProductInput {
   name: String!
   manufacturer: String!
+  price: Float!
 }
 
 input RegisterInput {
