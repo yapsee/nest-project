@@ -1,3 +1,4 @@
+import { MongoBasicQueriesService } from './commons/services/mongo-basic-queries.service';
 import { ClientsModule } from './clients/clients.module';
 import { ClientsService } from './clients/clients.service';
 import { ReservationsModule } from './reservations/reservations.module';
@@ -10,18 +11,18 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import {  ApolloDriver, ApolloDriverConfig} from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ClientsModule,
     ReservationsModule, ProductsModule, MongooseModule.forRoot(process.env.MONGODB_URL),
-     UsersModule, GraphQLModule.forRoot<ApolloDriverConfig>({
+    UsersModule, GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: 'schema.gql',
       driver: ApolloDriver
-     }),
-     AuthModule],
+    }),
+    AuthModule],
   controllers: [AppController],
   providers: [
     ClientsService, AppService],

@@ -9,23 +9,23 @@ import { ReservationsService } from './reservations.service';
 export class ReservationsController { 
   constructor(private reservationService: ReservationsService){}
 
-  @Get()
-  listreservations() {
-    return this.reservationService.getReservations();
-  }
+//   @Get()
+//   listreservations() {
+//     return this.reservationService.getReservations();
+//   }
 
-  @Post()
-  createreservations(@Body() reservation) {
-    return this.reservationService.addReservation(reservation)
-  }
+//   @Post()
+//   createreservations(@Body() reservation) {
+//     return this.reservationService.addReservation(reservation)
+//   }
 
-  @Delete(':id')
-  removeOne(@Param('id') reservationId) {
-    return this.reservationService.deleteReservation(reservationId);
-  }
+//   @Delete(':id')
+//   removeOne(@Param('id') reservationId) {
+//     return this.reservationService.deleteReservation(reservationId);
+//   }
   
-  @Put(':id')
-  update(@Param('id') reservationId, @Body() reservation) {
-     return this.reservationService.updateReservation(reservationId, reservation)
-  }
+//   @Put(':id')
+//   update(@Param('id') reservationId, @Body() reservation) {
+//      return this.reservationService.updateReservation(reservationId, reservation)
+//   }
 }

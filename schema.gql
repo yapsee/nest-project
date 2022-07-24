@@ -2,28 +2,59 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  username: String
-  password: String
-}
-
 type Product {
   id: ID!
   name: String
   manufacturer: String
 }
 
+type User {
+  username: String
+  password: String
+}
+
+type Reservation {
+  products: [Product!]!
+  amount: Float!
+  client: User!
+}
+
+type Session {
+  user: User!
+  token: String!
+}
+
 type Query {
-  fetchProducts: [Product!]!
+  fetchReservations: [Reservation!]!
   fetchUsers: [User!]!
   fetchUser(username: String!): User!
+  fetchProducts: [Product!]!
 }
 
 type Mutation {
+  makeReservation(reservationInput: ReservationInput!): Reservation!
+  register(registerInput: RegisterInput!): Session!
   createProduct(productInput: ProductInput!): Product!
+}
+
+input ReservationInput {
+  products: [ProductInput!]!
+  amount: Float!
 }
 
 input ProductInput {
   name: String!
   manufacturer: String!
+}
+
+input RegisterInput {
+  username: String!
+  password: String!
+  role: UserRole!
+}
+
+"""Possible user role"""
+enum UserRole {
+  ADMIN
+  USER
 }

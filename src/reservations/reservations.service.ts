@@ -3,47 +3,15 @@ https://docs.nestjs.com/providers#services
 */
 
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { MongoBasicQueriesService } from 'src/commons/services/mongo-basic-queries.service';
+import { IReservation } from './interfaces/reservation.interface';
+import { reservationModelName } from './schemas/reservation.model-name';
 
 @Injectable()
-export class ReservationsService { 
- private reservations = [
-  {id:1, cliendId: 300, reservationId: 1, count: 1, amount: 6777600},
-  {id:2, cliendId: 300, reservationId: 2, count: 1, amount: 90600}
-]
-
-getReservations(){
-  return this.reservations
-}
-
-findReservation(reservationId){
-  const reservation = this.reservations.find(reservation => reservation.id === reservationId)
-  return reservation
-}
-
-addReservation(reservation){
-
-  const lastreservation = this.reservations.find((reservation)=> reservation.id == (this.reservations.length))
-  reservation.id = lastreservation.id + 1 ;
-  this.reservations.push(reservation)
-  return reservation
-}
-
-updateReservation(reservationId, reservation){
- const index = this.reservations.findIndex((reservation)=> reservation.id == reservationId);
- if(index < 0){
-  throw new NotFoundException
- }
- const newreservation  = this.reservations[index] = {...this.reservations[index], ...reservation }
- return newreservation
-}
-
-deleteReservation(reservationId){
-  const index = this.reservations.findIndex((reservation) => reservation.id == reservationId);
-  if(index < 0){
-     throw new NotFoundException
+export class ReservationsService  extends MongoBasicQueriesService<IReservation> {
+  constructor(@InjectModel(reservationModelName) private model: Model<IReservation>) {
+      super(model);
   }
-  this.reservations.splice(index, 1);
-  return ('reservation deleted successfully')
-
-}
 }
