@@ -24,7 +24,8 @@ import { GqlUuid } from './commons/graphql/uuid.scalar';
     UsersModule, GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: 'schema.gql',
       driver: ApolloDriver,
-      resolvers: { UUID: GqlUuid }
+      resolvers: { UUID: GqlUuid },
+      playground: process.env.mode  === 'prod'
     }),
     AuthModule],
   controllers: [AppController],
