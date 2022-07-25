@@ -12,6 +12,9 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { AppInterceptor } from './app.interceptor';
+import { GqlUuid } from './commons/graphql/uuid.scalar';
 
 @Module({
   imports: [
@@ -20,11 +23,14 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     ReservationsModule, ProductsModule, MongooseModule.forRoot(process.env.MONGODB_URL),
     UsersModule, GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: 'schema.gql',
-      driver: ApolloDriver
+      driver: ApolloDriver,
+      resolvers: { UUID: GqlUuid }
     }),
     AuthModule],
   controllers: [AppController],
-  providers: [
-    ClientsService, AppService],
+  providers: [ AppService, {
+    provide: APP_INTERCEPTOR,
+    useClass: AppInterceptor
+  }],
 })
 export class AppModule { }

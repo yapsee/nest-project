@@ -18,7 +18,11 @@ type Reservation {
   products: [Product!]!
   amount: Float!
   client: User!
+  transactionId: UUID
 }
+
+"""UUID parser"""
+scalar UUID
 
 type Session {
   user: User!
@@ -30,6 +34,7 @@ type Query {
   fetchUsers: [User!]!
   fetchUser(username: String!): User!
   fetchProducts: [Product!]!
+  fetchProduct(id: ID!): Product!
   fetchProductsReservations: [ProductReservation!]!
 }
 

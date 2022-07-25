@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Args, ID, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { ProductReservation } from "./dto/product-reservation.type";
 import { Product } from "./dto/product.entity";
 import { ProductInput } from "./dto/product.input";
@@ -14,6 +14,13 @@ export class ProductsResolver {
     async fetchProducts() {
       return this.productService.findAll();
     }
+   
+    @Query(returns => Product)
+    async fetchProduct(
+        @Args({ name: 'id', type: () => ID }) id: Product['id'],
+    ): Promise<IProduct> {
+        return this.productService.findOneByIdOrFail(id);
+    }
 
 
     @Mutation(returns => Product)
@@ -26,5 +33,5 @@ export class ProductsResolver {
     @Query(returns => [ProductReservation])
     async fetchProductsReservations() {
       return this.productService.fetchProductsReservations();
-  }
+    }
   }
