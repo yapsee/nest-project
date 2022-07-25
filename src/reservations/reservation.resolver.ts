@@ -2,6 +2,7 @@ import { UseGuards } from "@nestjs/common";
 import { Resolver, Mutation, Args ,Query} from "@nestjs/graphql";
 import { AuthGuard } from "src/auth/auth.guard";
 import { CurrentUser } from "src/auth/decorators/current-user.decorator";
+import { Origin } from "src/commons/decorators/origin.decorator";
 import { IUser } from "src/users/interfaces/user.interface";
 import { Reservation } from "./dto/reservation.entity";
 import { ReservationInput } from "./dto/reservation.input";
@@ -21,7 +22,8 @@ export class RerservationResolver {
     }
 
     @Query(returns => [Reservation])
-    async fetchReservations(): Promise<IReservation[]> {
+    async fetchReservations( @Origin() origin: string): Promise<IReservation[]> {
+      console.log({origin})
         return this.reservationService.findAll();
     }
 }
