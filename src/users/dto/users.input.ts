@@ -1,11 +1,16 @@
-// import { Field, InputType, } from "@nestjs/graphql";
+import { Field, InputType, } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
 
-// @InputType()
-// export class User {
+@InputType()
+export class UserInput {
 
-//   @Field(type => String, { nullable: true })
-//   username: string;
+  @ApiProperty()
 
-//   @Field({ nullable: true })
-//   password: string;
-// }
+  @Field(type => String, { nullable: true })
+  username: string;
+  
+  @ApiProperty()
+
+  @Field({ nullable: true })
+  password: string;
+}

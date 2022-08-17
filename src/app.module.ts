@@ -1,3 +1,4 @@
+import { TaskModule } from './task/task.module';
 import { MongoBasicQueriesService } from './commons/services/mongo-basic-queries.service';
 import { ClientsModule } from './clients/clients.module';
 import { ClientsService } from './clients/clients.service';
@@ -16,8 +17,10 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AppInterceptor } from './app.interceptor';
 import { GqlUuid } from './commons/graphql/uuid.scalar';
 
+
 @Module({
   imports: [
+    TaskModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ClientsModule,
     ReservationsModule, ProductsModule, MongooseModule.forRoot(process.env.MONGODB_URL),
@@ -29,7 +32,7 @@ import { GqlUuid } from './commons/graphql/uuid.scalar';
     }),
     AuthModule],
   controllers: [AppController],
-  providers: [ AppService, {
+  providers: [AppService, {
     provide: APP_INTERCEPTOR,
     useClass: AppInterceptor
   }],

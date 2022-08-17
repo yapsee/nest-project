@@ -28,6 +28,7 @@
     "@nestjs/graphql": "^10.0.18",
     "@nestjs/mongoose": "^9.1.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^6.0.5",
     "apollo-server-express": "^3.10.0",
     "graphql": "^16.5.0",
     "jsonwebtoken": "^8.5.1",
